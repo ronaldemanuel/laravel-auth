@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\UserController;
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('users', [UserController::class, 'index']);
+Route::get('/dashboard', [UserController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+Route::resource('user', UserController::class)->middleware('auth');
+
+require __DIR__ . '/auth.php';

@@ -11,6 +11,13 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return response()->json($users);
+        return view('dashboard', ['users' => $users]);
+    }
+
+    public function destroy($id)
+    {
+        User::findOrFail($id)->delete();
+
+        return redirect('dashboard');
     }
 }
